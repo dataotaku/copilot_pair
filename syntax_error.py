@@ -6,7 +6,6 @@ class MyClass:
     def print_info(self):
         print(f"Name: {self.name}, Age: {self.age}")
 
-
 def main():
     people = [
         MyClass("Alice", 25),
@@ -19,17 +18,15 @@ def main():
 
     print("Total people: ", len(people))
 
-    with open("file.txt") as f:
-        content = f.read()
-        print("File content: ", content)
+    try:
+        with open('file.txt') as f:
+            content = f.read()
+            print("File content: ", content)
+    except FileNotFoundError:
+        print("File not found.")
 
-    # x = lambda a, b: a + b
-    def add(a, b):
-        return a + b
-
-    print("Lambda result: ", add(5, 10))
-    # print("Lambda result: ", x(5, 10))
-
+    x = lambda a, b: a + b
+    print("Lambda result: ", x(5, 10))
 
 if __name__ == "__main__":
     main()
