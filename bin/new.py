@@ -33,8 +33,8 @@ def get_args() -> Args:
     )
 
     defaults = get_defaults()
-    username = os.getenv("USER") or "Anonymous"
-    hostname = os.getenv("HOSTNAME") or "localhost"
+    username = os.getenv("USER") or "unho.chang"
+    hostname = os.getenv("HOSTNAME") or "dataotaku.com"
 
     parser.add_argument("program", help="Program name", type=str)
 
@@ -58,7 +58,7 @@ def get_args() -> Args:
         "-p",
         "--purpose",
         type=str,
-        default=defaults.get("purpose", "Rock the Casbah"),
+        default=defaults.get("purpose", "Python Coding Club"),
         help="Purpose for docstring",
     )
 

@@ -4,15 +4,32 @@
 import os
 from subprocess import getstatusoutput, getoutput
 
-prg = './crowsnest.py'
+prg = "C:/Users/unhoc/Documents/copilot_pair/02_crowsnest/crowsnest.py"
 consonant_words = [
-    'brigantine', 'clipper', 'dreadnought', 'frigate', 'galleon', 'haddock',
-    'junk', 'ketch', 'longboat', 'mullet', 'narwhal', 'porpoise', 'quay',
-    'regatta', 'submarine', 'tanker', 'vessel', 'whale', 'xebec', 'yatch',
-    'zebrafish'
+    "brigantine",
+    "clipper",
+    "dreadnought",
+    "frigate",
+    "galleon",
+    "haddock",
+    "junk",
+    "ketch",
+    "longboat",
+    "mullet",
+    "narwhal",
+    "porpoise",
+    "quay",
+    "regatta",
+    "submarine",
+    "tanker",
+    "vessel",
+    "whale",
+    "xebec",
+    "yatch",
+    "zebrafish",
 ]
-vowel_words = ['aviso', 'eel', 'iceberg', 'octopus', 'upbound']
-template = 'Ahoy, Captain, {} {} off the larboard bow!'
+vowel_words = ["aviso", "eel", "iceberg", "octopus", "upbound"]
+template = "Ahoy, Captain, {} {} off the larboard bow!"
 
 
 # --------------------------------------------------
@@ -26,10 +43,12 @@ def test_exists():
 def test_usage():
     """usage"""
 
-    for flag in ['-h', '--help']:
-        rv, out = getstatusoutput(f'{prg} {flag}')
+    for flag in ["-h", "--help"]:
+        rv, out = getstatusoutput(
+            f"C:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {flag}"
+        )
         assert rv == 0
-        assert out.lower().startswith('usage')
+        assert out.lower().startswith("usage")
 
 
 # --------------------------------------------------
@@ -37,8 +56,10 @@ def test_consonant():
     """brigantine -> a brigantine"""
 
     for word in consonant_words:
-        out = getoutput(f'{prg} {word}')
-        assert out.strip() == template.format('a', word)
+        out = getoutput(
+            f"C:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {word}"
+        )
+        assert out.strip() == template.format("a", word)
 
 
 # --------------------------------------------------
@@ -46,8 +67,10 @@ def test_consonant_upper():
     """brigantine -> a Brigatine"""
 
     for word in consonant_words:
-        out = getoutput(f'{prg} {word.title()}')
-        assert out.strip() == template.format('a', word.title())
+        out = getoutput(
+            f"C:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {word.title()}"
+        )
+        assert out.strip() == template.format("a", word.title())
 
 
 # --------------------------------------------------
@@ -55,8 +78,10 @@ def test_vowel():
     """octopus -> an octopus"""
 
     for word in vowel_words:
-        out = getoutput(f'{prg} {word}')
-        assert out.strip() == template.format('an', word)
+        out = getoutput(
+            f"C:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {word}"
+        )
+        assert out.strip() == template.format("an", word)
 
 
 # --------------------------------------------------
@@ -64,5 +89,7 @@ def test_vowel_upper():
     """octopus -> an Octopus"""
 
     for word in vowel_words:
-        out = getoutput(f'{prg} {word.upper()}')
-        assert out.strip() == template.format('an', word.upper())
+        out = getoutput(
+            f"C:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {word.upper()}"
+        )
+        assert out.strip() == template.format("an", word.upper())
