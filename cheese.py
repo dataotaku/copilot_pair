@@ -34,7 +34,8 @@ def findMedianSortedArrays(nums1, nums2):
         return (merged[n//2] + merged[n//2 - 1]) / 2
     else:
         return merged[n//2]
-    
+
+
 def findMedianSortedArrays2(nums1, nums2):
     A, B = nums1, nums2
     total = len(nums1) + len(nums2)
@@ -59,7 +60,7 @@ def findMedianSortedArrays2(nums1, nums2):
             if total % 2:
                 return min(Aright, Bright)
             # 짝수인 경우
-            return (max(Aleft, Bleft) + min(Aright, Bright)) / 2
+            return (max(Aleft, Bleft) + min(Aright, Bright)) / 2)
         elif Aleft > Bright:
             r = i - 1
         else:
