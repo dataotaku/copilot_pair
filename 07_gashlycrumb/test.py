@@ -9,7 +9,9 @@ from subprocess import getstatusoutput
 from pathlib import Path
 
 # 절대 경로로 변환하고, 구분자를 UNIX 스타일로 변경
-prg = "c:/Users/unhoc/Documents/copilot_pair/07_gashlycrumb/gashlycrumb.py"
+interpreter = "c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe"
+current_dir = Path("gashlycrumb.py").resolve()
+prg = str(current_dir).replace("\\", "/")
 
 
 # --------------------------------------------------
@@ -32,7 +34,7 @@ def test_usage():
 
     for flag in ["-h", "--help"]:
         rv, out = getstatusoutput(
-            f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {flag}"
+            f"{interpreter} {prg} {flag}"
         )
         assert rv == 0
         assert re.match("usage", out, re.IGNORECASE)
@@ -45,7 +47,7 @@ def test_bad_file():
     bad = random_string()
     letter = random.choice(string.ascii_lowercase)
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} {letter} -f {bad}"
+        f"{interpreter} {prg} {letter} -f {bad}"
     )
     assert rv != 0
     expected = f"No such file or directory: '{bad}'"
@@ -57,7 +59,7 @@ def test_a():
     """Test for 'a'"""
 
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} a"
+        f"{interpreter} {prg} a"
     )
     assert rv == 0
     expected = "A is for Amy who fell down the stairs."
@@ -69,7 +71,7 @@ def test_b_c():
     """Test for 'b c'"""
 
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} b c"
+        f"{interpreter} {prg} b c"
     )
     assert rv == 0
     expected = "B is for Basil assaulted by bears.\n" "C is for Clara who wasted away."
@@ -81,7 +83,7 @@ def test_y():
     """Test for 'y'"""
 
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} Y"
+        f"{interpreter} {prg} Y"
     )
     assert rv == 0
     expected = "Y is for Yorick whose head was bashed in."
@@ -93,7 +95,7 @@ def test_o_alternate():
     """Test for 'o' from 'alternate.txt'"""
 
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} o P q -f c:/Users/unhoc/Documents/copilot_pair/07_gashlycrumb/alternate.txt"
+        f"{interpreter} {prg} o P q -f c:/Users/unhoc/Documents/copilot_pair/07_gashlycrumb/alternate.txt"
     )
     assert rv == 0
     expected = (
@@ -109,7 +111,7 @@ def test_bad_letter():
     """Test for bad input"""
 
     rv, out = getstatusoutput(
-        f"c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe {prg} 5 CH"
+        f"{interpreter} {prg} 5 CH"
     )
     assert rv == 0
     expected = 'I do not know "5".\n' 'I do not know "CH".'

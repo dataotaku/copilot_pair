@@ -6,6 +6,7 @@ Purpose: Python Coding Club
 """
 
 import argparse
+import os
 
 
 # --------------------------------------------------
@@ -16,35 +17,16 @@ def get_args():
         description='Python Coding Club',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('positional',
+    parser.add_argument('text',
                         metavar='str',
-                        help='A positional argument')
+                        help='input text or file')
 
-    parser.add_argument('-a',
-                        '--arg',
-                        help='A named string argument',
-                        metavar='str',
+    parser.add_argument('-v',
+                        '--vowel',
+                        help='vowel to substitute',
+                        metavar='vowel',
                         type=str,
-                        default='')
-
-    parser.add_argument('-i',
-                        '--int',
-                        help='A named integer argument',
-                        metavar='int',
-                        type=int,
-                        default=0)
-
-    parser.add_argument('-f',
-                        '--file',
-                        help='A readable file',
-                        metavar='FILE',
-                        type=argparse.FileType('rt'),
-                        default=None)
-
-    parser.add_argument('-o',
-                        '--on',
-                        help='A boolean flag',
-                        action='store_true')
+                        default='a')
 
     return parser.parse_args()
 
@@ -54,17 +36,34 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
+    str_arg = args.text
+    vowel_arg = args.vowel
+    
+    vowels = 'aeiou'
+    if args.vowel not in vowels:
+        print(f'usage: --vowel "{vowel_arg}" must be a vowel')
+        exit(1)
+    else:
+        if args.vowel == None:
+            vowel = 'a'
+        else:
+            vowel = vowel_arg
 
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
+    new_text = ''
+    if os.path.isfile(str_arg):
+        with open(str_arg, 'rt') as f:
+            str_arg = f.read().rstrip()
+        
+    for char in str_arg:
+        if char in vowels:
+            new_text += vowel
+        elif char.upper() in vowels.upper():
+            new_text += vowel.upper()
+        else:
+            new_text += char
+
+    print(new_text)
+
 
 
 # --------------------------------------------------

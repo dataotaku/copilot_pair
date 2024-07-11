@@ -8,8 +8,8 @@ Purpose: Python Coding Club
 import argparse
 from pathlib import Path
 
-current_dir = Path.cwd()
-file_path = "c:/Users/unhoc/Documents/copilot_pair/07_gashlycrumb/gashlycrumb.txt"
+current_dir = Path("gashlycrumb.txt").resolve()
+file_path = str(current_dir).replace("\\", "/")
 
 
 # --------------------------------------------------
