@@ -7,7 +7,9 @@ import re
 import string
 from subprocess import getstatusoutput, getoutput
 
-prg = './abuse.py'
+interpreter = "c:/Users/unhoc/Documents/copilot_pair/.copilot_pair/Scripts/python.exe"
+
+prg = "c:/Users/unhoc/Documents/copilot_pair/09_abuse/abuse.py"
 
 
 # --------------------------------------------------
@@ -21,8 +23,8 @@ def test_exists():
 def test_usage():
     """usage"""
 
-    for flag in ['-h', '--help']:
-        rv, out = getstatusoutput(f'{prg} {flag}')
+    for flag in ["-h", "--help"]:
+        rv, out = getstatusoutput(f"{interpreter} {prg} {flag}")
         assert rv == 0
         assert re.match("usage", out, re.IGNORECASE)
 
@@ -32,7 +34,7 @@ def test_bad_adjective_str():
     """bad_adjectives"""
 
     bad = random_string()
-    rv, out = getstatusoutput(f'{prg} -a {bad}')
+    rv, out = getstatusoutput(f"{interpreter} {prg} -a {bad}")
     assert rv != 0
     assert re.search(f"invalid int value: '{bad}'", out)
 
@@ -42,7 +44,7 @@ def test_bad_adjective_num():
     """bad_adjectives"""
 
     n = random.choice(range(-10, 0))
-    rv, out = getstatusoutput(f'{prg} -a {n}')
+    rv, out = getstatusoutput(f"{interpreter} {prg} -a {n}")
     print(out)
     assert rv != 0
     assert re.search(f'--adjectives "{n}" must be > 0', out)
@@ -53,7 +55,7 @@ def test_bad_number_str():
     """bad_number"""
 
     bad = random_string()
-    rv, out = getstatusoutput(f'{prg} -n {bad}')
+    rv, out = getstatusoutput(f"{interpreter} {prg} -n {bad}")
     assert rv != 0
     assert re.search(f"invalid int value: '{bad}'", out)
 
@@ -63,7 +65,7 @@ def test_bad_number_int():
     """bad_number"""
 
     n = random.choice(range(-10, 0))
-    rv, out = getstatusoutput(f'{prg} -n {n}')
+    rv, out = getstatusoutput(f"{interpreter} {prg} -n {n}")
     assert rv != 0
     assert re.search(f'--number "{n}" must be > 0', out)
 
@@ -73,7 +75,7 @@ def test_bad_seed():
     """bad seed"""
 
     bad = random_string()
-    rv, out = getstatusoutput(f'{prg} -s {bad}')
+    rv, out = getstatusoutput(f"{interpreter} {prg} -s {bad}")
     assert rv != 0
     assert re.search(f"invalid int value: '{bad}'", out)
 
@@ -82,15 +84,15 @@ def test_bad_seed():
 def test_01():
     """test"""
 
-    out = getoutput(f'{prg} -s 1 -n 1')
-    assert out.strip() == 'You filthsome, cullionly fiend!'
+    out = getoutput(f"{interpreter} {prg} -s 1 -n 1")
+    assert out.strip() == "You filthsome, cullionly fiend!"
 
 
 # --------------------------------------------------
 def test_02():
     """test"""
 
-    out = getoutput(f'{prg} --seed 2')
+    out = getoutput(f"{interpreter} {prg} --seed 2")
     expected = """
 You corrupt, detestable beggar!
 You peevish, foolish gull!
@@ -103,7 +105,7 @@ You insatiate, heedless worm!
 def test_03():
     """test"""
 
-    out = getoutput(f'{prg} -s 3 -n 5 -a 1')
+    out = getoutput(f"{interpreter} {prg} -s 3 -n 5 -a 1")
     expected = """
 You infected villain!
 You vile braggart!
@@ -118,7 +120,7 @@ You cullionly worm!
 def test_04():
     """test"""
 
-    out = getoutput(f'{prg} --seed 4 --number 2 --adjectives 4')
+    out = getoutput(f"{interpreter} {prg} --seed 4 --number 2 --adjectives 4")
     expected = """
 You infected, lecherous, dishonest, rotten recreant!
 You filthy, detestable, cullionly, base lunatic!
@@ -130,4 +132,4 @@ You filthy, detestable, cullionly, base lunatic!
 def random_string():
     """generate a random filename"""
 
-    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+    return "".join(random.sample(string.ascii_lowercase + string.digits, k=5))
