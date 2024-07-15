@@ -5,11 +5,11 @@ import os
 # from PIL import Image
 
 # 이미지가 있는 폴더 지정 필요  (이미지 파일만 있어야 함)
-img_folder = "c:/Users/unhoc/Documents/copilot_pair/AI코딩_테스트"
+img_folder = "c:/Users/unhoc/Documents/copilot_pair/Mana2_Fashion"
 # 저장할 폴더 지정 필요
 path_dir = "c:/Users/unhoc/Documents/copilot_pair/pptx"
 # 저장할 파일명 수정 필요 (확장자 pptx)
-ppt_file_name = "temp_image.pptx"
+ppt_file_name = "Mana2_Fashion.pptx"
 
 # 파워포인트 객체 생성
 prs = Presentation()
@@ -57,8 +57,8 @@ for img_name in img_files:
 # 파일 저장
 prs.save(os.path.join(path_dir, ppt_file_name))
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 # # resize and attatch
 # img_path = os.path.join(img_folder, img_files[0])
