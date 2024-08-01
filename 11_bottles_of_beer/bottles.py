@@ -68,6 +68,26 @@ def main():
             print()
 
 
+def test_verse():
+    """Test verse 함수"""
+
+    last_verse = verse(1)
+    assert last_verse == (
+        "1 bottle of beer on the wall,\n"
+        "1 bottle of beer,\n"
+        "Take one down, pass it around,\n"
+        "No more bottles of beer on the wall!"
+    )
+
+    two_bottles = verse(2)
+    assert two_bottles == (
+        "2 bottles of beer on the wall,\n"
+        "2 bottles of beer,\n"
+        "Take one down, pass it around,\n"
+        "1 bottle of beer on the wall!"
+    )
+
+
 # --------------------------------------------------
 if __name__ == "__main__":
     main()
