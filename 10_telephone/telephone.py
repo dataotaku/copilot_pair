@@ -6,6 +6,9 @@ Purpose: Python Coding Club
 """
 
 import argparse
+import os
+import random
+import string
 
 
 # --------------------------------------------------
@@ -13,40 +16,34 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Python Coding Club',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        description="Telephone", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
 
-    parser.add_argument('positional',
-                        metavar='str',
-                        help='A positional argument')
+    parser.add_argument("text", metavar="text", help="Input text or file")
 
-    parser.add_argument('-a',
-                        '--arg',
-                        help='A named string argument',
-                        metavar='str',
-                        type=str,
-                        default='')
+    parser.add_argument(
+        "-s", "--seed", help="Random seed", metavar="int", type=int, default=None
+    )
 
-    parser.add_argument('-i',
-                        '--int',
-                        help='A named integer argument',
-                        metavar='int',
-                        type=int,
-                        default=0)
+    parser.add_argument(
+        "-m",
+        "--mutations",
+        help="Percent mutations",
+        metavar="mutations",
+        type=float,
+        default=0.1,
+    )
 
-    parser.add_argument('-f',
-                        '--file',
-                        help='A readable file',
-                        metavar='FILE',
-                        type=argparse.FileType('rt'),
-                        default=None)
+    args = parser.parse_args()
 
-    parser.add_argument('-o',
-                        '--on',
-                        help='A boolean flag',
-                        action='store_true')
+    if os.path.isfile(args.text):
+        with open(args.text, "rt") as f:
+            args.text = f.read().rstrip()
 
-    return parser.parse_args()
+    if args.mutations > 1 or args.mutations < 0:
+        parser.error(f'--mutations "{args.mutations}" must be between 0 and 1')
+
+    return args
 
 
 # --------------------------------------------------
@@ -54,19 +51,24 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
+    random.seed(args.seed)
+    print(f'You said: "{args.text}"')
 
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
+    alpha = "".join(sorted(string.ascii_letters + string.punctuation))
+
+    if args.mutations:
+        charlist = list(args.text)
+        num_mutations = round(len(charlist) * args.mutations)
+        idxes = random.sample(range(len(charlist)), num_mutations)
+
+        for idx in idxes:
+            charlist[idx] = random.choice([ch for ch in alpha if ch != charlist[idx]])
+
+        args.text = "".join(charlist)
+
+    print(f'I heard : "{args.text}"')
 
 
 # --------------------------------------------------
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
